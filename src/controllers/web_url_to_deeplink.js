@@ -1,7 +1,5 @@
 import { Joi } from 'koa-joi-router';
-import {
-  webUrlToDeepLink,
-} from '../usecases';
+import webUrlToDeepLink from '../usecases/web_url_to_deeplink';
 
 const handler = async (ctx) => {
   /*
