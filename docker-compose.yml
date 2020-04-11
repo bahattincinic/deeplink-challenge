@@ -2,32 +2,58 @@ version: '3'
 
 services:
 
-  api:
+  webapi:
     build: .
     restart: on-failure
-    container_name: website
+    container_name: webapi
     links:
-      - redis
+      - rediscache
       - postgre
+      - rabbitmq
     ports:
-      - 8080:8080
+      - 4000:4000
     volumes:
       - ".:/app"
     command: bash -c "npm run watch"
     tty: true
     stdin_open: true
 
-  redis:
+  apiworker:
+    build: .
+    restart: on-failure
+    container_name: apiworker
+    links:
+      - rediscache
+      - postgre
+      - rabbitmq
+    volumes:
+      - ".:/app"
+    command: bash -c "node worker.js"
+    tty: true
+    stdin_open: true
+
+  rediscache:
     image: redis:5.0
-    container_name: cache
+    container_name: rediscache
     ports:
       - 6379:6379
     volumes:
-      - /var/lib/redis
+      - ./.docker/redis:/var/lib/redis
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    volumes:
+      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    ports:
+      - 5672:5672
+      - 15672:15672
 
   postgre:
     image: postgres:11.5
-    container_name: database
+    container_name: postgre
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
@@ -35,4 +61,4 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - /var/lib/postgres
+      - ./.docker/postgres:/var/lib/postgres

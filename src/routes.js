@@ -1,9 +1,14 @@
-import Router from 'koa-router';
+import Router from 'koa-joi-router';
 import {
   webUrlToDeepLink,
 } from './controllers';
+import {
+  apiVersion,
+} from './config';
 
 const appRouter = new Router();
-appRouter.post('/api/v1/web-url-to-deeplink', webUrlToDeepLink);
+appRouter.prefix(`/api/${apiVersion}`);
+webUrlToDeepLink(appRouter);
+
 
 export default appRouter;
