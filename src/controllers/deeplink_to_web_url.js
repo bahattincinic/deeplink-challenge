@@ -1,5 +1,6 @@
 import { Joi } from 'koa-joi-router';
 import deepLinkToWebUrl from '../usecases/deeplink_to_web_url';
+import logRequest from '../usecases/request_log';
 
 const handler = async (ctx) => {
   /*
@@ -19,6 +20,8 @@ const handler = async (ctx) => {
     ctx.status = 400;
     ctx.body = { message: 'Invalid url' };
   }
+
+  await logRequest(ctx.request.url, ctx.status || 200, ctx.request.body, ctx.body);
 };
 
 const validator = {

@@ -1,7 +1,5 @@
 import Amqp from './amqp';
-import {
-  logRequest,
-} from '../usecases';
+import processRequestLog from '../usecases/process_request_log';
 
 
 export default async (client = null) => {
@@ -11,7 +9,7 @@ export default async (client = null) => {
   }
 
   amqpClient.consume(async (body, ack) => {
-    await logRequest(body);
+    await processRequestLog(body);
     await ack();
   });
 };

@@ -1,5 +1,6 @@
 import { Joi } from 'koa-joi-router';
 import createShortLink from '../usecases/create_shortlink';
+import logRequest from '../usecases/request_log';
 import { appPort } from '../config';
 
 const handler = async (ctx) => {
@@ -23,6 +24,8 @@ const handler = async (ctx) => {
     ctx.status = 400;
     ctx.body = { message: 'Please enter valid `web_url` or `deeplink`' };
   }
+
+  await logRequest(ctx.request.url, ctx.status || 200, ctx.request.body, ctx.body);
 };
 
 const validator = {
