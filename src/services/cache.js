@@ -1,9 +1,10 @@
 import redis from 'redis';
 import { promisify } from 'util';
+import { cacheUrl } from '../config';
 
 export default class Cache {
   constructor() {
-    this.client = redis.createClient();
+    this.client = redis.createClient(cacheUrl);
     this.asyncGet = promisify(this.client.get).bind(this.client);
     this.asyncSet = promisify(this.client.set).bind(this.client);
   }
@@ -19,7 +20,7 @@ export default class Cache {
   async get(key) {
     const data = await this.asyncGet(`shortlink_${key}`);
     if (data) {
-      return Cache.decodeData(key);
+      return Cache.decodeData(data);
     }
     return null;
   }

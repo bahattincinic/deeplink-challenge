@@ -6,24 +6,24 @@ import Cache from '../services/cache';
 
 const commonErrorMessage = {
   result: false,
-  error: 'Please enter valid `web_url` or `deeplink`',
+  code: null,
 };
 
 export default async (links) => {
-  let { webURL, deeplink } = links.webURL;
+  let { webURL, deeplink } = links;
 
   if (!webURL && !deeplink) {
     return commonErrorMessage;
   }
 
   if (webURL) {
-    const result = webUrlToDeepLink(webURL);
+    const result = await webUrlToDeepLink(webURL);
     if (!result.found) {
       return commonErrorMessage;
     }
     deeplink = result.url;
   } else {
-    const result = deepLinkToWebUrl(deeplink);
+    const result = await deepLinkToWebUrl(deeplink);
     if (!result.found) {
       return commonErrorMessage;
     }
@@ -34,7 +34,7 @@ export default async (links) => {
   await createSortLink(code, deeplink, webURL);
 
   // add created link to cache.
-  const client = Cache();
+  const client = new Cache();
   await client.set(code, {
     deeplink, webURL,
   });

@@ -1,4 +1,5 @@
 import url from 'url';
+import Logger from '../logger';
 import Cache from '../services/cache';
 import { findSortLinkByCode } from '../repositories/shortlink_repository';
 
@@ -6,9 +7,10 @@ export default async (shortLink) => {
   const parsedUrl = url.parse(shortLink);
   const code = parsedUrl.pathname.replace('/', '');
 
-  const client = Cache();
-  const cachedInstance = client.get(code);
+  const client = new Cache();
+  const cachedInstance = await client.get(code);
   if (cachedInstance) {
+    Logger.info(`${code} hitted the cache`);
     return {
       result: true, data: cachedInstance,
     };
