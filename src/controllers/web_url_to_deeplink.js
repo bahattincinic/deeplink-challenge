@@ -11,10 +11,16 @@ const handler = async (ctx) => {
   }
  */
   const { webURL } = ctx.request.body;
+  const result = await webUrlToDeepLink(webURL);
 
-  ctx.body = {
-    deeplink: await webUrlToDeepLink(webURL),
-  };
+  if (result.found) {
+    ctx.body = {
+      deeplink: result.url,
+    };
+  } else {
+    ctx.status = 400;
+    ctx.body = { message: 'Invalid url' };
+  }
 };
 
 const validator = {

@@ -11,7 +11,6 @@ export const queueConf = {
   queueName: 'deeplink',
 };
 
-
 export const apiVersion = 'v1';
 export const databaseUrl = (
   process.env.DATABASE_URL || 'postgres://postgres:postgres@172.18.0.1:5432/challenge'

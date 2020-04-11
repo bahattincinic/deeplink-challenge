@@ -16,4 +16,4 @@ fs
     models[model.name] = model;
   });
 
-export { models };
+export default models;
