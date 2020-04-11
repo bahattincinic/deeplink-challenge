@@ -6,20 +6,38 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
+    "watch": "nodemon -e js --exec npm run start",
     "lint": "eslint src/",
-    "lintFix": "eslint src/ --fix"
+    "lintFix": "eslint src/ --fix",
+    "build": "babel src -d build"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/register": "^7.9.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "nodemon": "^2.0.3"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "dotenv": "^8.2.0",
     "koa": "^2.11.0",
-    "swagger-koa": "^2.1.0",
     "koa-bodyparser": "^4.3.0",
     "koa-logger": "^3.2.1",
-    "koa-router": "^8.0.8"
+    "koa-router": "^8.0.8",
+    "pg": "^8.0.2",
+    "pg-hstore": "^2.3.3",
+    "redis": "^3.0.2",
+    "sequelize": "^5.21.6"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-3"
+    ]
   }
 }

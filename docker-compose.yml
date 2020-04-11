@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+
+  api:
+    build: .
+    restart: on-failure
+    container_name: website
+    links:
+      - redis
+      - postgre
+    ports:
+      - 8080:8080
+    volumes:
+      - ".:/app"
+    command: bash -c "npm run watch"
+    tty: true
+    stdin_open: true
+
+  redis:
+    image: redis:5.0
+    container_name: cache
+    ports:
+      - 6379:6379
+    volumes:
+      - /var/lib/redis
+
+  postgre:
+    image: postgres:11.5
+    container_name: database
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "challenge"
+    ports:
+      - 5432:5432
+    volumes:
+      - /var/lib/postgres
