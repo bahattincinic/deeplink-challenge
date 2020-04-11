@@ -10,7 +10,7 @@ const findSectionBySlug = async (slug) => {
 const findSectionById = async (id) => {
   const instance = await Models.Sections.findOne({
     where: {
-      id: parseInt(id),
+      id: parseInt(id, 10),
     },
   });
   return instance;

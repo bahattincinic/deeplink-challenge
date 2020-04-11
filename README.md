@@ -57,6 +57,12 @@ $ docker exec -it webapi bash
 $ npx sequelize-cli db:seed:all
 ```
 
+Check eslint errors
+
+```
+$ docker exec -it webapi bash -c "npm run lint"
+```
+
 ### Docker Container
 
 When we check which docker containers are running, we see 5 different docker containers are running. 

@@ -1,10 +1,10 @@
 import Models from '../data/models';
 
 
-const createSortLink = async (code, deeplink, web_url) => {
+const createSortLink = async (code, deeplink, webUrl) => {
   const instance = await Models.ShortLinks.create({
     code,
-    web_url,
+    web_url: webUrl,
     deeplink,
   });
   return instance;
