@@ -15,36 +15,56 @@ const routes = [
   {
     path: '^/butik/liste/([\\w-]+)/$',
     page: 'Home',
-    params: [
-      {
+    params: {
+      0: {
         name: 'SectionId',
         value: (instance) => instance.id,
         fetcher: findSectionBySlug,
       },
-    ],
+    },
   },
   {
     path: '^/Hesabim/*',
     page: 'Home',
   },
   {
-    web_path: '^/tum--urunler$',
+    path: '^/tum--urunler/$',
     page: 'Search',
     queryString: {
       q: 'Query',
+    },
+  },
+  {
+    path: '^/([\\w-]+)/([\\w-]+)-p-([\\w-]+)/',
+    page: 'Product',
+    queryString: {
+      boutiqueId: 'CampaignId',
+      merchantId: 'MerchantId',
+    },
+    params: {
+      2: {
+        name: 'ContentId',
+        value: (currentValue) => currentValue,
+      },
     },
   },
 ];
 
 export default async (webUrl) => {
   const parsedUrl = url.parse(webUrl);
+  let parsedUrlPath = parsedUrl.pathname;
+
+  if (!parsedUrlPath.endsWith('/')) {
+    // Avoid inconsistent match.
+    parsedUrlPath += '/';
+  }
 
   const matchedRoutes = routes.filter((route) => {
     const re = new RegExp(route.path);
-    return re.test(parsedUrl.path);
+    return re.test(parsedUrlPath);
   });
 
-  if (!matchedRoutes) {
+  if (matchedRoutes.length === 0) {
     return {
       found: false, url: null,
     };
@@ -74,18 +94,34 @@ export default async (webUrl) => {
 
   // Handle dynamic url params
   const matchedParams = [
-    ...parsedUrl.path.match(matchedRoute.path),
+    ...(parsedUrlPath.match(matchedRoute.path) || []),
   ];
   let generatedParams = null;
   if (matchedParams && matchedParams.length > 1 && matchedRoute.params) {
     matchedParams.shift(); // remove URL from the array.
     generatedParams = await matchedParams.reduce(async (result, param, index) => {
       const rule = matchedRoute.params[index];
-      const instance = await rule.fetcher(param);
+      if (!rule) {
+        // unexpected param.
+        return result;
+      }
+
+      let instance = null;
+      if (rule.fetcher) {
+        instance = await rule.fetcher(param);
+      }
+
       return {
         ...result,
+
+        // Handle db fields
         ...(instance ? {
           [rule.name]: rule.value(instance),
+        } : {}),
+
+        // Handle Proxy fields
+        ...((!instance && rule.value) ? {
+          [rule.name]: rule.value(param),
         } : {}),
       };
     }, {});
