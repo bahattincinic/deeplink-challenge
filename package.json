@@ -8,8 +8,7 @@
     "start": "node index.js",
     "watch": "nodemon -e js --exec npm run start",
     "lint": "eslint src/",
-    "lintFix": "eslint src/ --fix",
-    "build": "babel src -d build"
+    "lintFix": "eslint src/ --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
