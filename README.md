@@ -1,5 +1,8 @@
 # Bahattin Cinic - Trendyol Case
 
+I developed this challenge with clean architecture principles.
+(Please check uncle bob blog post https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
 ### Understanding the Folder Structure
 
 ```
