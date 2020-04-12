@@ -21,12 +21,14 @@ export default async (links) => {
     if (!result.found) {
       return commonErrorMessage;
     }
+    // generate deeplink from webUrl
     deeplink = result.url;
   } else {
     const result = await deepLinkToWebUrl(deeplink);
     if (!result.found) {
       return commonErrorMessage;
     }
+    // generate webUrl from deeplink.
     webURL = result.url;
   }
 

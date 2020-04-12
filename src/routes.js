@@ -12,6 +12,7 @@ import {
 const appRouter = new Router();
 appRouter.prefix(`/api/${apiVersion}`);
 
+// Register API endpoints.
 webUrlToDeepLink(appRouter);
 deepLinkToWebUrl(appRouter);
 serveShortLink(appRouter);

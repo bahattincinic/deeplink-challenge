@@ -99,3 +99,45 @@ Attach the container:
 ```
 $ docker exec -it webapi bash
 ```
+
+### API
+
+Create short link:
+
+```
+URL: POST http://localhost:4000/short-link/create/
+Body:
+{
+    "deeplink": "ty://?Page=Search&Query=elbise"
+}
+```
+
+Get shortlist detail:
+
+```
+URL: POST http://localhost:4000/short-link/get/
+Body:
+{
+"shortlink": "http://localhost:4040/xssas"
+}
+```
+
+Get Web url from deeplink:
+
+```
+URL: POST http://localhost:4000/api/v1/deeplink-to-web-url
+Body:
+{
+"deeplink": " ty://?Page=Home&SectionId=2"
+}
+```
+
+Get deeplink from web url:
+
+```
+URL: POST http://localhost:4000/api/v1/web-url-to-deeplink
+Body:
+{
+"webURL" : "https://www.trendyol.com/butik/liste/erkek"
+}
+```

@@ -16,7 +16,7 @@ const handler = async (ctx) => {
     ctx.body = shortLink.data;
   } else {
     ctx.status = 400;
-    ctx.body = { message: shortLink.error };
+    ctx.body = { message: 'invalid url' };
   }
 
   await logRequest(ctx.request.url, ctx.status || 200, ctx.request.body, ctx.body);

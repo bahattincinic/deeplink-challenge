@@ -19,7 +19,7 @@ export default async (shortLink) => {
   const instance = await findSortLinkByCode(code);
   if (!instance) {
     return {
-      result: false, error: 'invalid url',
+      result: false, data: null,
     };
   }
 
@@ -31,5 +31,8 @@ export default async (shortLink) => {
   // add created link to cache.
   await client.set(code, data);
 
-  return data;
+  return {
+    result: true,
+    data,
+  };
 };

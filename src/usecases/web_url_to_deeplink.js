@@ -1,8 +1,15 @@
 import url from 'url';
 import querystring from 'querystring';
 import { findSectionBySlug } from '../repositories/section_repository';
+import { findProductById } from '../repositories/product_repository';
 import Logger from '../logger';
 
+/*
+path: Regex pattern
+page: deeplink page
+params: dynamic url parameters
+queryString: query string params
+*/
 const routes = [
   {
     path: '^/$',
@@ -44,7 +51,8 @@ const routes = [
     params: {
       2: {
         name: 'ContentId',
-        value: (currentValue) => currentValue,
+        value: (instance) => instance.id,
+        fetcher: findProductById,
       },
     },
   },
@@ -118,16 +126,11 @@ export default async (webUrl) => {
         ...(instance ? {
           [rule.name]: rule.value(instance),
         } : {}),
-
-        // Handle Proxy fields
-        ...((!instance && rule.value) ? {
-          [rule.name]: rule.value(param),
-        } : {}),
       };
     }, {});
   }
 
-  if (generatedParams) {
+  if (generatedParams && Object.keys(generatedParams).length > 0) {
     deeplink += `&${querystring.stringify(generatedParams)}`;
   }
 
