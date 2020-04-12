@@ -66,6 +66,16 @@ Check eslint errors
 $ docker exec -it webapi bash -c "npm run lint"
 ```
 
+### Environment Variables
+
+- NODE_ENV (default: `development`)
+- BROKER_URL (default: `amqp://172.18.0.1`)
+- DATABASE_URL (default: `postgres://postgres:postgres@172.18.0.1:5432/challenge`)
+- CACHE_URL (default: `redis://172.18.0.1:6379`)
+- PORT (default: `4000`)
+
+You can override these variables with dotenv (https://github.com/motdotla/dotenv) or manually.
+
 ### Docker Container
 
 When we check which docker containers are running, we see 5 different docker containers are running. 
