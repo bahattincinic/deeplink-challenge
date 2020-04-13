@@ -1,0 +1,49 @@
+name: NodeJs application
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11.5
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: challenge
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      redis:
+        image: redis:5.0
+        ports: ['6379:6379']
+
+      rabbitmq:
+        image: rabbitmq:3-management-alpine
+        ports: ['5672:5672']
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+        env:
+          - BROKER_URL: 'amqp://127.0.0.1'
+          - DATABASE_URL: 'postgres://postgres:postgres@127.0.0.1:5432/challenge'
+          - CACHE_URL: 'redis://127.0.0.1:6379'
+      - name: Install dependencies
+        run: |
+          yarn install
+          npx sequelize-cli db:migrate
+          npx sequelize-cli db:seed:all
+      - name: Eslint
+        run: npm run lint
