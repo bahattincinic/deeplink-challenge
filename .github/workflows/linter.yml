@@ -37,9 +37,9 @@ jobs:
         with:
           node-version: '10.x'
         env:
-          - BROKER_URL: 'amqp://127.0.0.1'
-          - DATABASE_URL: 'postgres://postgres:postgres@127.0.0.1:5432/challenge'
-          - CACHE_URL: 'redis://127.0.0.1:6379'
+          BROKER_URL: 'amqp://127.0.0.1'
+          DATABASE_URL: 'postgres://postgres:postgres@127.0.0.1:5432/challenge'
+          CACHE_URL: 'redis://127.0.0.1:6379'
       - name: Install dependencies
         run: |
           yarn install
