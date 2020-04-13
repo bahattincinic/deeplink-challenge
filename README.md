@@ -141,7 +141,7 @@ Get Web url from deeplink:
 URL: POST http://localhost:4000/api/v1/deeplink-to-web-url
 Body:
 {
-"deeplink": " dl://?Page=Home&SectionId=2"
+"deeplink": "dl://?Page=Home&SectionId=2"
 }
 ```
 
