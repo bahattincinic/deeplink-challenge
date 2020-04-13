@@ -2,7 +2,7 @@ import querystring from 'querystring';
 import { findSectionById } from '../repositories/section_repository';
 import { findProductById } from '../repositories/product_repository';
 
-const fallbackUrl = 'https://www.trendyol.com';
+const fallbackUrl = 'https://www.example.com';
 
 const routes = {
   Home: [
@@ -11,7 +11,7 @@ const routes = {
       rule: (queryString) => !queryString.SectionId,
     },
     {
-      url: (p) => `${fallbackUrl}/butik/liste/${p.SectionId.slug}/`,
+      url: (p) => `${fallbackUrl}/boutique/list/${p.SectionId.slug}/`,
       rule: (queryString) => !!queryString.SectionId,
       params: {
         SectionId: findSectionById,
@@ -32,7 +32,7 @@ const routes = {
     ),
   }],
   Search: [{
-    url: () => `${fallbackUrl}/tum--urunler`,
+    url: () => `${fallbackUrl}/all-products`,
     queryString: {
       Query: 'q',
     },
@@ -50,7 +50,7 @@ const routes = {
 
 
 export default async (deepLink) => {
-  const namespace = 'ty://?';
+  const namespace = 'dl://?';
   if (!deepLink.startsWith(namespace)) {
     return {
       found: false,

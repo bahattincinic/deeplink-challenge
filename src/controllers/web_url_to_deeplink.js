@@ -6,7 +6,7 @@ const handler = async (ctx) => {
   /*
   Example request is below;
   {
-    "webURL" : "https://www.trendyol.com/butik/liste/erkek"
+    "webURL" : "https://www.example.com/boutique/list/man"
   }
  */
   const { webURL } = ctx.request.body;

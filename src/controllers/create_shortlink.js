@@ -7,11 +7,11 @@ const handler = async (ctx) => {
   /*
   Example WebURL request is below;
   {
-    "webURL": "https://www.trendyol.com/tum--urunler?q=elbise”"
+    "webURL": "https://www.example.com/all-products?q=apple”"
   }
   Example deeplink request is below;
   {
-    "deeplink": "ty://?Page=Search&Query=elbise"
+    "deeplink": "dl://?Page=Search&Query=apple"
   }
  */
   const shortLink = await createShortLink(ctx.request.body);

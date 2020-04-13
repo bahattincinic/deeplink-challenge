@@ -3,24 +3,24 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Sections', [{
-      name: 'Kadın',
-      slug: 'kadin',
+      name: 'Women',
+      slug: 'women',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      name: 'Erkek',
-      slug: 'erkek',
+      name: 'Man',
+      slug: 'man',
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Süpermarket',
+      name: 'Supermarket',
       slug: 'supermarket',
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Çocuk',
-      slug: 'cocuk',
+      name: 'Child',
+      slug: 'child',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

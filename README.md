@@ -1,4 +1,4 @@
-# Bahattin Cinic - Trendyol Case
+# Deeplink Challenge
 
 I developed this challenge with clean architecture principles.
 (Please check uncle bob blog post https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
@@ -38,8 +38,8 @@ I developed this challenge with clean architecture principles.
 Clone the repository
 
 ```
-$ git clone git@gitlab.com:MeltemParilti/bahattin-cinic-trendyol-case.git
-$ cd bahattin-cinic-trendyol-case
+$ git clone git@github.com:bahattincinic/deeplink-challenge.git
+$ cd deeplink-challenge
 ```
 
 build docker images with the following link
@@ -121,7 +121,7 @@ Create short link:
 URL: POST http://localhost:4000/short-link/create/
 Body:
 {
-    "deeplink": "ty://?Page=Search&Query=elbise"
+    "deeplink": "dl://?Page=Search&Query=apple"
 }
 ```
 
@@ -141,7 +141,7 @@ Get Web url from deeplink:
 URL: POST http://localhost:4000/api/v1/deeplink-to-web-url
 Body:
 {
-"deeplink": " ty://?Page=Home&SectionId=2"
+"deeplink": " dl://?Page=Home&SectionId=2"
 }
 ```
 
@@ -151,6 +151,6 @@ Get deeplink from web url:
 URL: POST http://localhost:4000/api/v1/web-url-to-deeplink
 Body:
 {
-"webURL" : "https://www.trendyol.com/butik/liste/erkek"
+"webURL" : "https://www.example.com/boutique/list/man"
 }
 ```

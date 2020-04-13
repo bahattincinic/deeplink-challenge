@@ -16,11 +16,11 @@ const routes = [
     page: 'Home',
   },
   {
-    path: '^/butik/liste/$',
+    path: '^/boutique/list/$',
     page: 'Home',
   },
   {
-    path: '^/butik/liste/([\\w-]+)/$',
+    path: '^/boutique/list/([\\w-]+)/$',
     page: 'Home',
     params: {
       0: {
@@ -31,11 +31,11 @@ const routes = [
     },
   },
   {
-    path: '^/Hesabim/*',
+    path: '^/Account/*',
     page: 'Home',
   },
   {
-    path: '^/tum--urunler/$',
+    path: '^/all-products/$',
     page: 'Search',
     queryString: {
       q: 'Query',
@@ -82,7 +82,7 @@ export default async (webUrl) => {
   const matchedRoute = matchedRoutes[0];
   Logger.info(`${matchedRoute.path} URL matched.`);
 
-  let deeplink = `ty://?page=${matchedRoute.page}`;
+  let deeplink = `dl://?page=${matchedRoute.page}`;
 
   // handle query string params (for example search)
   if (matchedRoute.queryString && parsedUrl.query) {

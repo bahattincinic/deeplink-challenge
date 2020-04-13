@@ -6,7 +6,7 @@ const handler = async (ctx) => {
   /*
   Example request is below;
   {
-    "deeplink": " ty://?Page=Home&SectionId=2"
+    "deeplink": " dl://?Page=Home&SectionId=2"
   }
  */
   const { deeplink } = ctx.request.body;
