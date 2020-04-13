@@ -2,7 +2,7 @@
   "name": "deeplink-challenge",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Bahattin Cinic <bahattin@adphorus.com>",
+  "author": "Bahattin Cinic <bahattincinic@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
